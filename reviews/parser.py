@@ -18,12 +18,14 @@ class ShopeeReviewsParser(ReviewsParser):
             divs = soup.find_all(attrs={"class":"shopee-product-rating"})
             for div in divs:
                 author = div.find(attrs={"class": "shopee-product-rating__author-name"}).string
-                purchase_detail = div.find(attrs={"class": "shopee-product-rating__time"}).string
-                variant = ''
-                review_date = ''
                 review_div = div.find(attrs={"class": "Em3Qhp"})
                 review = review_div.string if review_div is not None else ""
-                reviews.append(ProductReview(author=author, review=review, reviewed_at=review_date, meta=purchase_detail))
+                
+                META_SEPARATOR = " | "
+                meta_div = div.find(attrs={"class": "shopee-product-rating__time"}).string
+                reviewed_at = meta_div.split(META_SEPARATOR)[0]
+                meta = meta_div.split(META_SEPARATOR)[1] if len(meta_div.split(META_SEPARATOR)) == 2 else ""
+                reviews.append(ProductReview(author=author, review=review, reviewed_at=reviewed_at, meta=meta))
         
         return reviews
 
