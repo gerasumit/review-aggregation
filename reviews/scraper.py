@@ -15,9 +15,9 @@ class ReviewsScraper:
     def __init__(self, start_url: str):
         self.start_url =  start_url
         hostname = urlparse(start_url).hostname
-        if hostname == 'shopee.sg':
+        if "shopee.sg" in hostname:
             self.parser = ShopeeReviewsParser()
-        elif hostname == 'www.lazada.sg':
+        elif 'lazada.sg' in hostname:
             self.parser = LazadaReviewsParser()
         else:
             print(hostname)
