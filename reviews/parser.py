@@ -1,7 +1,7 @@
 from typing import List, Protocol
 
 from bs4 import BeautifulSoup
-from reviews.product_review import ProductReview
+from reviews.model import ProductReview
 
 
 class ReviewsParser(Protocol):

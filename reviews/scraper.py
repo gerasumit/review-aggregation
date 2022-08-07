@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import hashlib
 from utilities.html_doc_scroller import HTMLDocumentScroller
-from reviews.reviews_parser import ReviewsParser
+from reviews.parser import ReviewsParser
 
 class ReviewsScraper:
     start_url: str

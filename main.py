@@ -1,5 +1,5 @@
-from reviews.product_reviews_scraper import ReviewsScraper
-from reviews.reviews_parser import LazadaReviewsParser, ShopeeReviewsParser
+from reviews.scraper import ReviewsScraper
+from reviews.parser import LazadaReviewsParser, ShopeeReviewsParser
 
 ReviewsScraper(
     start_url='https://shopee.sg/OnePlus-Ace-5G-Gaming-Phone-Dual-Charger-(150W-SG-3-Pin-65W-)-SG-1-Year-Local-Warranty-i.93785607.9759889784?sp_atk=19284016-eb12-4474-bd23-6b3e00d8da53&xptdk=19284016-eb12-4474-bd23-6b3e00d8da53',
