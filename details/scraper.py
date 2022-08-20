@@ -34,9 +34,10 @@ class ProductDetailScraper:
         html_file.close()
 
     def request(self) -> ProductDetail:
-        # Configure webdriver
+        # Get user agent
         USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36"
         
+        # Configure webdriver
         options = Options()
         options.page_load_strategy = "eager"
         options.add_argument('--headless')

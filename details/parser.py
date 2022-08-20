@@ -28,5 +28,6 @@ class HNProductDetailParser(ProductDetailParser):
 
 class CourtsProductDetailParser(ProductDetailParser):
     def parse(self, soup: BeautifulSoup) -> ProductDetail:
-        print('No parser found')
-        raise NotImplementedError
+        title_h1 = soup.find(attrs={"class": "page-title"})
+        productDetail = ProductDetail(description=title_h1.string if title_h1 is not None else "")
+        return productDetail
