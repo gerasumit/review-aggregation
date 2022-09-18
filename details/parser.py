@@ -1,7 +1,4 @@
-from itertools import product
-from turtle import title
 from bs4 import BeautifulSoup
-
 from details.model import ProductDetail
 
 class ProductDetailParser:

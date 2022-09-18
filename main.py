@@ -1,10 +1,10 @@
 from details.model import ProductDetail
 from details.scraper import ProductDetailScraper
+from google.query_builder import QueryBuilder, QueryConfig
 from reviews.model import ProductReview
 from reviews.scraper import ReviewsScraper
+from product_links.scraper import ProductLinkScraper
 from typing import List
-
-from utilities.performance_util import CodeTimer
 
 def printReview(reviews=List[ProductReview]):
     [print(review.author, review.review, review.reviewed_at, review.meta, "\n") for review in reviews]
@@ -28,3 +28,14 @@ urls = [
 # Print product detail
 for url in urls:
     printProductDetail(ProductDetailScraper(start_url=url).request())
+
+# Get Product Detail
+productDetail = ProductDetailScraper(start_url=urls[1]).request()
+
+# Use Product Detail for running query on Google
+query = QueryBuilder().build(config=QueryConfig(productDetail=productDetail))
+print(query)
+
+# Parse product links on Google
+productLinks = ProductLinkScraper(start_url="https://www.google.com/search?q=" + query).request()
+[print(link.link) for link in productLinks]

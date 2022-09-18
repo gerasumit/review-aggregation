@@ -1,6 +1,3 @@
-from tokenize import String
-
-
 class ProductDetail:
     description: str
     model: str
