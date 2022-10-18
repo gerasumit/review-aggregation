@@ -3,6 +3,7 @@ from flask import request
 from details.scraper import ProductDetailScraper
 from google.query_builder import QueryBuilder, QueryConfig
 from product_links.scraper import ProductLinkScraper
+import logging
 
 app = Flask(__name__)
 
@@ -21,5 +22,8 @@ def reviews():
     }
     return response, 200, {'Content-Type':'application/json'}
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=105)
+@app.errorhandler(500)
+def server_error(e):
+    # Log the error and stacktrace.
+    logging.exception('An error occurred during a request.')
+    return 'An internal error occurred.', 500
