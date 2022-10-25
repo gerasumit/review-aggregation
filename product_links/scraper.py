@@ -6,6 +6,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from product_links.model import ProductLink
 from utilities.html_doc_scroller import HTMLDocumentScroller
+import os
 
 class ProductLinkScraper:
     start_url: str
@@ -21,6 +22,8 @@ class ProductLinkScraper:
         html_file.close()
 
     def request(self) -> List[ProductLink]:
+        print(os.environ)
+
         # Get user agent
         USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36"
         

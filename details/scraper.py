@@ -7,6 +7,7 @@ from hyperlink import URLParseError
 from details.model import ProductDetail
 from details.parser import CourtsProductDetailParser, HNProductDetailParser, LazadaProductDetailParser, ProductDetailParser, ShopeeProductDetailParser
 from utilities.html_doc_scroller import HTMLDocumentScroller
+import os
 
 
 class ProductDetailScraper:
@@ -34,6 +35,7 @@ class ProductDetailScraper:
         html_file.close()
 
     def request(self) -> ProductDetail:
+        print(os.environ)
         # Get user agent
         USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36"
         

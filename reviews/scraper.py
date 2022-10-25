@@ -7,6 +7,7 @@ import hashlib
 from reviews.model import ProductReview
 from utilities.html_doc_scroller import HTMLDocumentScroller
 from reviews.parser import LazadaReviewsParser, ReviewsParser, ShopeeReviewsParser
+import os
 
 class ReviewsScraper:
     start_url: str
@@ -29,6 +30,8 @@ class ReviewsScraper:
         html_file.close()
 
     def request(self) -> List[ProductReview]:
+        print(os.environ)
+
         # Configure webdriver
         options = Options()
         options.page_load_strategy = "eager"
