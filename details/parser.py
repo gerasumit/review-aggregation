@@ -13,7 +13,7 @@ class LazadaProductDetailParser(ProductDetailParser):
 
 class ShopeeProductDetailParser(ProductDetailParser):
     def parse(self, soup: BeautifulSoup) -> ProductDetail:
-        title_div = soup.find(attrs={"class":"_2rQP1z"})
+        title_div = soup.find(attrs={"class":"YPqix5"})
         productDetail = ProductDetail(description=title_div.span.string if title_div is not None else "")
         return productDetail
 

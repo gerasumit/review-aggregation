@@ -12,7 +12,8 @@ def reviews():
     productUrl = request.form['product_url']
     productDetail = ProductDetailScraper(start_url=productUrl).request()
     query = QueryBuilder().build(config=QueryConfig(productDetail=productDetail))
-    productLinks = ProductLinkScraper(start_url="https://www.google.com/search?q=" + query).request()
+    productLinksUrl = "https://www.google.com/search?q=" + query
+    productLinks = ProductLinkScraper(start_url=productLinksUrl).request()
     response = {
         'product_detail': {
             'description': productDetail.description,

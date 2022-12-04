@@ -2,7 +2,7 @@ from time import sleep
 from selenium import webdriver
 
 class HTMLDocumentScroller:
-    def scrollDocToEnd(self, driver: webdriver.Chrome):
+    def scrollDocToEnd(self, driver: webdriver.Firefox):
         SCROLL_PAUSE_TIME = 1.0
 
         curr_height = 0
