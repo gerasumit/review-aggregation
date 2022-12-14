@@ -4,6 +4,7 @@ from details.scraper import ProductDetailScraper
 from google.query_builder import QueryBuilder, QueryConfig
 from product_links.scraper import ProductLinkScraper
 import logging
+from google.search_api import OpenSearch
 
 app = Flask(__name__)
 
@@ -12,14 +13,17 @@ def reviews():
     productUrl = request.form['product_url']
     productDetail = ProductDetailScraper(start_url=productUrl).request()
     query = QueryBuilder().build(config=QueryConfig(productDetail=productDetail))
-    productLinksUrl = "https://www.google.com/search?q=" + query
-    productLinks = ProductLinkScraper(start_url=productLinksUrl).request()
+    search_results = OpenSearch().get_search_results(q=query)
+    productUrls = [item['link'] for item in search_results['items']] if search_results['items'] is not None else []
+    # productLinksUrl = "https://www.google.com/search?q=" + query
+    # productLinks = ProductLinkScraper(start_url=productLinksUrl).request()
+    # productUrls = [link.link for link in productLinks]
     response = {
         'product_detail': {
             'description': productDetail.description,
             'model': productDetail.model
         },
-        'google_links': [link.link for link in productLinks]
+        'product_urls': productUrls
     }
     return response, 200, {'Content-Type':'application/json'}
 
