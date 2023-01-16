@@ -28,3 +28,11 @@ class CourtsProductDetailParser(ProductDetailParser):
         title_h1 = soup.find(attrs={"class": "page-title"})
         productDetail = ProductDetail(description=title_h1.string if title_h1 is not None else "")
         return productDetail
+
+class AmazonProductDetailParser(ProductDetailParser):
+    def parse(self, soup: BeautifulSoup) -> ProductDetail:
+        title_item = soup.find(attrs={"id": "productTitle"})
+        model_tr = soup.find(attrs={"class": "po-model_name"})
+        model_name = model_tr.find(attrs={"class":"po-break-word"}) if model_tr is not None else None
+        productDetail = ProductDetail(description=title_item.string if title_item is not None else "", model=model_name.string if model_name is not None else "")
+        return productDetail

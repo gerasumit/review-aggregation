@@ -14,7 +14,8 @@ def reviews():
     productDetail = ProductDetailScraper(start_url=productUrl).request()
     query = QueryBuilder().build(config=QueryConfig(productDetail=productDetail))
     search_results = OpenSearch().get_search_results(q=query)
-    productUrls = [item['link'] for item in search_results['items']] if search_results['items'] is not None else []
+    items = search_results['items'] if 'items' in search_results else []
+    productUrls = [item['link'] for item in items]
     # productLinksUrl = "https://www.google.com/search?q=" + query
     # productLinks = ProductLinkScraper(start_url=productLinksUrl).request()
     # productUrls = [link.link for link in productLinks]

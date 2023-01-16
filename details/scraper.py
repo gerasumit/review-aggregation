@@ -2,7 +2,7 @@ from urllib.parse import urlparse
 
 from hyperlink import URLParseError
 from base.scraper import BaseScraper
-from details.parser import CourtsProductDetailParser, HNProductDetailParser, LazadaProductDetailParser, ProductDetailParser, ShopeeProductDetailParser
+from details.parser import AmazonProductDetailParser, CourtsProductDetailParser, HNProductDetailParser, LazadaProductDetailParser, ProductDetailParser, ShopeeProductDetailParser
 
 class ProductDetailScraper(BaseScraper):
     start_url: str
@@ -19,6 +19,8 @@ class ProductDetailScraper(BaseScraper):
             self.parser = HNProductDetailParser()
         elif 'courts.com.sg' in hostname:
             self.parser = CourtsProductDetailParser()
+        elif ('amazon.sg' in hostname) or ('amazon.com' in hostname):
+            self.parser = AmazonProductDetailParser()
         else:
             print(hostname)
             raise URLParseError
