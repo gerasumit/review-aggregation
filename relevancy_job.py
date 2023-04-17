@@ -5,6 +5,7 @@ from google.search_api import OpenSearch
 import time
 from enum import Enum
 import sys, time
+import re
 
 class URLRelevancy(Enum):
     WHITELISTED = 1
@@ -13,18 +14,34 @@ class URLRelevancy(Enum):
     UKNOWN = 4
 
 def getUrlRelevancy(url: str) -> URLRelevancy:
-    whitelisted_url_scheme = ["lazada.sg/products"]
-    blacklisted_url_scheme = ["shopee.sg/search", "lazada.sg/tag", "shopee.sg/mall", "shopee.sg/list", "shopee.sg/collections", "amazon.sg/gp/bestsellers", "amazon.sg/stores"]
-    URL_NOT_FOUND = -1
+    whitelisted_url_scheme = [
+        ".+lazada.sg/products.+"
+    ]
+    blacklisted_url_scheme = [
+        ".+shopee.sg/search.+",
+        ".+shopee.sg/m/.+", 
+        ".+lazada.sg/tag.+", 
+        ".+shopee.sg/mall.+", 
+        ".+shopee.sg/list.+", 
+        ".+shopee.sg/collections.+", 
+        ".+amazon.(?:sg|com)/gp/bestsellers.+", 
+        ".+amazon.(?:sg|com)/stores.+", 
+        ".+amazon.(?:sg|com)/vdp.+", 
+        ".+amazon.(?:sg|com)/gp/.+", 
+        ".+amazon.(?:sg|com).+/s?.+",
+        ".+amazon.(?:sg|com)/stores.+",
+        ".+amazon.(?:sg|com).+b?ie.+"
+    ]
 
 
     for w_url_scheme in whitelisted_url_scheme:
-        if url.find(w_url_scheme) != URL_NOT_FOUND:
+        if re.fullmatch(w_url_scheme, url) is not None:
             return URLRelevancy.WHITELISTED
 
     for b_url_scheme in blacklisted_url_scheme:
-        if url.find(b_url_scheme) != URL_NOT_FOUND:
+        if re.fullmatch(b_url_scheme, url) is not None:
             return URLRelevancy.BLACKLISTED
+
 
     return URLRelevancy.UKNOWN
 
